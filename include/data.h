@@ -9,25 +9,25 @@
  * inclusion will be done. */
 
 /* Uncomment the line below once you've completed the exercise 1A*/
-//#define TYPEDEF_COMPLETED
+#define TYPEDEF_COMPLETED
 
 #define MAX_CINEMAS 5
 #define MAX_SCREENS 5
 #define MAX_SESSIONS 5
-#define MAX_NAME 15+1
-#define MAX_DOC_NUMBER 9+1
+#define MAX_NAME (15+1)
+#define MAX_DOC_NUMBER (9+1)
 #define MAX_MOVIES 50
 #define MAX_PURCHASES 50
 #define MAX_PATHNAME 255
 #define MAX_FILENAME 25
 #define MAX_LINE 514
-#define NO_CINEMA -1
-#define NO_SCREEN -1
-#define NO_SESSION -1
-#define NO_MOVIE -1
-#define NO_PURCHASE -1
-#define NO_ROW -1
-#define NO_SEAT_IN_ROW -1
+#define NO_CINEMA (-1)
+#define NO_SCREEN (-1)
+#define NO_SESSION (-1)
+#define NO_MOVIE (-1)
+#define NO_PURCHASE (-1)
+#define NO_ROW (-1)
+#define NO_SEAT_IN_ROW (-1)
 
 #define MAX_ROWS 10
 #define MAX_SEATS_PER_ROW 10
@@ -116,11 +116,11 @@ typedef enum {
 typedef struct {
     tMovieId movieId;
 /**************** EX 1A *******************/
-
-
-
-
-/******************************************/
+    char title[MAX_NAME];
+    tTime duration;
+    tMovieRate rate;
+    float income; //should be 0 or positive
+/****************************************/
 } tMovie;
 
 typedef struct {

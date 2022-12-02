@@ -6,7 +6,7 @@
 void getMovieStr(tMovie movie, int maxSize, char *str) {
 #ifdef TYPEDEF_COMPLETED
     snprintf(str,maxSize-1,"%d %s %02d:%02d %d %.2f",
-        movie.movieId, movie.title, movie.duration.hour, movie.duration.minute, 
+        movie.movieId, movie.title, movie.duration.hour, movie.duration.minute,
         movie.rate, movie.income);
 #endif
 }
@@ -118,17 +118,25 @@ void movieCpy(tMovie *dst, tMovie src) {
 /*****************************************/
 }
 
+/*
+ * donada una taula de tipus tMovieTable i una pel·lícula de tipus tMovie, afegeixi
+la pel·lícula dins la taula. Si no hi ha espai en la taula per afegir la pel·lícula,
+haureu de retornar el codi ERR_MEMORY en la variable retVal. Altrament,
+retorneu OK.
+ */
 void movieTableAdd(tMovieTable *tabMovie, tMovie movie, tError *retVal) {
 
     *retVal = OK;
 
 /**************** EX 1B *******************/
 
+    bool found = false;
+    int i = 0;
 
-
-
-
-
+    strcpy(tabMovie->table->title, movie.title);
+    tabMovie->table->duration = movie.duration;
+    tabMovie->table->rate = movie.rate;
+    tabMovie->table->income = movie.income;
 
 /******************************************/
 }
