@@ -160,8 +160,13 @@ int movieTableFind(tMovieTable tabMovie, tMovieId id) {
 void movieTableDel(tMovieTable *tabMovie, tMovie movie) {
 /**************** EX 1C *******************/
 
-
-
+int pos = movieTableFind(*tabMovie, movie.movieId);
+    if (pos >= 0) {
+        for (int i = pos; i < tabMovie->nMovies; ++i) {
+            tabMovie->table[i] = tabMovie->table[i + 1];
+        }
+        tabMovie->nMovies--;
+    }
 
 
 
