@@ -233,14 +233,26 @@ void addSession(tAppData *object, tCinemaId cinemaId, tScreenId screenId, tMovie
                 getMovie(*object, prevSession.movieId, &prevMovie, retVal);
 
 /**************** EX 3A *******************/
+                if (*retVal != ERR_ENTRY_NOT_FOUND){
 
+                    timeCpy(&movieTime, object->movies.table[iMovie].duration);
+                    timeCpy(&endTime, object->cinemas.table[iCinema].closingTime);
+                    timeCpy(&startTime , object->cinemas.table[iCinema].screens.table[iScreen].sessions.table[nSessions].time);
+                    tTime add ;
+                    add.hour = 0;
+                    add.minute = 20;
+                    timeAdd(&startTime,add);
 
-
-
-
-
-
-
+                    if (checkTimeFits(startTime, movieTime, endTime)) {
+                        prevSession.sessionId = screenId * 10 + nSessions + 1;
+                        prevSession.movieId = movieId;
+                        prevSession.busySeats = 0;
+                        timeCpy(&prevSession.time, startTime);
+                        sessionTableAdd(&object->cinemas.table[iCinema].screens.table[iScreen].sessions, prevSession, retVal);
+                        *retVal = OK;
+                    } else
+                        *retVal = ERR_NO_FREE_GAP;
+                }
 /******************************************/
             }
 #ifdef TYPEDEF_COMPLETED
@@ -274,13 +286,23 @@ bool isMovieProgrammed(tAppData object, tMovie movie) {
 
 /**************** EX 3B **********************/
 
-
-
-
-
-
-
-
+        int idx = NO_MOVIE;
+        int iCinema = 0;
+        int iSesion =0;
+        int iscreens=0;
+        while (iCinema < object.cinemas.nCinemas && idx == NO_MOVIE) {
+            while (iscreens < object.cinemas.table[iCinema].screens.nScreens){
+                while (iSesion < object.cinemas.table[iCinema].screens.table[iscreens].sessions.nSessions){
+                    if(movie.movieId == object.cinemas.table[iCinema].screens.table[iscreens].sessions.table[iSesion].movieId){
+                        idx = iSesion;
+                    }
+                    iSesion++;
+                }
+                iSesion = 0;
+            }
+            iscreens = 0;
+        }
+        return idx;
 
 /*********************************************/
 

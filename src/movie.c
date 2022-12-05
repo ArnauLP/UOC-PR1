@@ -130,13 +130,12 @@ void movieTableAdd(tMovieTable *tabMovie, tMovie movie, tError *retVal) {
 
 /**************** EX 1B *******************/
 
-    bool found = false;
-    int i = 0;
+    strcpy(tabMovie->table[tabMovie->nMovies].title, movie.title);
+    tabMovie->table[tabMovie->nMovies].duration = movie.duration;
+    tabMovie->table[tabMovie->nMovies].rate = movie.rate;
+    tabMovie->table[tabMovie->nMovies].income = movie.income;
 
-    strcpy(tabMovie->table->title, movie.title);
-    tabMovie->table->duration = movie.duration;
-    tabMovie->table->rate = movie.rate;
-    tabMovie->table->income = movie.income;
+    tabMovie->nMovies++;
 
 /******************************************/
 }
@@ -159,7 +158,6 @@ int movieTableFind(tMovieTable tabMovie, tMovieId id) {
 
 void movieTableDel(tMovieTable *tabMovie, tMovie movie) {
 /**************** EX 1C *******************/
-
 int pos = movieTableFind(*tabMovie, movie.movieId);
     if (pos >= 0) {
         for (int i = pos; i < tabMovie->nMovies; ++i) {
@@ -167,11 +165,6 @@ int pos = movieTableFind(*tabMovie, movie.movieId);
         }
         tabMovie->nMovies--;
     }
-
-
-
-
-
 /******************************************/
 }
 

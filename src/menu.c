@@ -27,31 +27,56 @@ int getOption(int numOptions) {
 void readMovie(tMovie *movie, tError *retVal) {
 
     *retVal = ERROR;
-
 /**************** EX 2 *******************/
+    movie->income = 0;
 
+    *retVal = ERROR;
 
+    char buffer[MAX_LINE];
+    int number, length, hour, minute, i, rows, seatsPerRow;
+    tScreen screen;
 
+    while (*retVal == ERROR) {
+        printf("Movie id (integer between 1 and %d):\n>> ", MAX_CINEMAS);
+        scanf("%d", &number);
+        if (number >= 1 && number <= MAX_CINEMAS) {
+            movie->movieId = (tMovieId) (number);
+            *retVal = OK;
+        }
+    }
 
+    *retVal = ERROR;
+    while (*retVal == ERROR) {
+        printf("Movie title (max %d char, no spaces):\n>> ", MAX_NAME - 1);
+        scanf("%s", buffer);
+        length = strlen(buffer);
+        if (length < MAX_NAME) {
+            strncpy(movie->title, buffer, MAX_NAME);
+            *retVal = OK;
+        }
+    }
 
+    *retVal = ERROR;
+    while (*retVal == ERROR) {
+        printf("Movie duration (format HH:MM):\n>> ");
+        scanf("%d:%d", &hour, &minute);
+        if (hour >= 0 && minute >= 0 && minute <= 59) {
+            movie->duration.hour = hour;
+            movie->duration.minute = minute;
+            *retVal = OK;
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //TODO: POSAR ENUMS
+    *retVal = ERROR;
+    while (*retVal == ERROR) {
+        printf("Movie rate (1 digit being ):\n>> ");
+        scanf("%d", &number);
+        if (number >= 0 && number <= 3) {
+            movie->rate = (tMovieRate) (number);
+            *retVal = OK;
+        }
+    }
 /*****************************************/
 }
 
