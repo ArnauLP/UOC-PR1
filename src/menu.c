@@ -584,11 +584,21 @@ void cinemaMenu(tAppData *appData) {
 
 void printTickets(tPurchase purchase, tCinema cinema, tScreen screen, tSession session, tMovie movie) {
 /**************** EX 5 *******************/
+/*
+ * a partir d’una compra, del cinema, la sala, la sessió i la pel·lícula, mostri per pantalla tots els tiquets
+ * de cadascuna de les localitats adquirides en la compra. Per cada tiquet s’ha de mostrar: nom del cinema,
+ * títol de la pel·lícula, número de sala, hora d’inici de la sessió, fila i seient.
+*/
 
-
-
-
-
+    //mostrar tiquets
+    printf("Ticket 1");
+    printf("Nom del cinema: %s", cinema.name); //cinema name
+    printf("Nom del cinema: %s", movie.title); //movie title
+    printf("Nom del cinema: %d", session.sessionId); //numero de la sala
+    //printf("Nom del cinema: %d", session.time.hour); //hora inici de la sessio?
+    printf("Nom del cinema: %d", cinema.openingTime.hour); //hora inici de la sessio?
+    printf("Nom del cinema: %d", screen.rows); //row
+    printf("Nom del cinema: %d", screen.seatsPerRow); //seats
 
 
 
@@ -706,7 +716,7 @@ void purchaseMenu(tAppData *appData) {
                             else {
                                 appData->movies.table[pMovie].income += purchase.price;
                                 printf("Seats successfully assigned. Purchase confirmed. Movie '%s'.\n",
-                                        appData->movies.table[pMovie].title );
+                                       appData->movies.table[pMovie].title);
                             }
 #endif
                         } else
