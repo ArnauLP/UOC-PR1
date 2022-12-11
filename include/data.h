@@ -113,6 +113,7 @@ typedef enum {
     G_RATED, PG_RATED, PG13_RATED, R_RATED, NC17_RATED
 } tMovieRate;
 
+//TODO: EX 6A tMovie
 typedef struct {
     tMovieId movieId;
 /**************** EX 1A *******************/

@@ -5,19 +5,19 @@
 
 void getMovieStr(tMovie movie, int maxSize, char *str) {
 #ifdef TYPEDEF_COMPLETED
-    snprintf(str,maxSize-1,"%d %s %02d:%02d %d %.2f",
-        movie.movieId, movie.title, movie.duration.hour, movie.duration.minute,
-        movie.rate, movie.income);
+    snprintf(str, maxSize - 1, "%d %s %02d:%02d %d %.2f",
+             movie.movieId, movie.title, movie.duration.hour, movie.duration.minute,
+             movie.rate, movie.income);
 #endif
 }
 
 void getMovieObject(const char *str, tMovie *movie) {
 #ifdef TYPEDEF_COMPLETED
-    int id= 0, rate= 0;
+    int id = 0, rate = 0;
     sscanf(str, "%d %s %d:%d %d %f", &(id), movie->title, &movie->duration.hour,
-        &movie->duration.minute, &rate, &movie->income);
-    movie->movieId = (tMovieId)(id);
-    movie->rate= (tMovieRate)(rate);
+           &movie->duration.minute, &rate, &movie->income);
+    movie->movieId = (tMovieId) (id);
+    movie->rate = (tMovieRate) (rate);
 #endif
 }
 
@@ -70,7 +70,7 @@ void convertToUpper(char *string) {
     }
 }
 
-int strcmpUpper(char *s1, char *s2) {
+int strcmpUpper(char *s1, char *s2) { //transform string to uppercase for avoiding problems in comparations
     int result = 0;
     char string1[MAX_LINE];
     char string2[MAX_LINE];
@@ -85,36 +85,56 @@ int strcmpUpper(char *s1, char *s2) {
     return result;
 }
 
+//TODO: EX 6B compare movies and test "timeCmp" func
 int movieCmp(tMovie m1, tMovie m2) {
 
     int result = 0;
 /**************** EX 6B *******************/
+    //check if it's different
+    if (strcmpUpper(m1.title, m2.title) < 0) {
+        result = -1;
+    }
+    /*V1*/
+    //check if it's different (all variables )
+    if (strcmpUpper(m1.title, m2.title) == 0 &&
+        timeCmp(m1.duration, m2.duration) &&
+        m1.rate == m2.rate && m1.income == m2.income) { //Equals
 
+        //alternative to timeCmp: m1.duration.hour == m2.duration.hour && m1.duration.minute == m2.duration.minute
+        result = 0;
+    }
 
+    /*V2 not recommended*/
+    /*if ((strcmpUpper(m1.title, m2.title)) == 0) {
+        if (timeCmp(m1.duration, m2.duration)){
+            if (m1.rate == m2.rate){
+                if (m1.income == m2.income){
+                    result = 0;
+                }
+            }
+        }
+    }*/
 
-
-
-
-
-
-
-
-
-
+    //check if it's different
+    if (strcmpUpper(m1.title, m2.title) > 0) {
+        result = 1;
+    }
 /******************************************/
-
     return result;
 }
 
+//TODO: EX 6A tMovie
 void movieCpy(tMovie *dst, tMovie src) {
 /**************** EX 6A *******************/
+/*l’acció movieCpy que permet copiar totes les
+dades d’una estructura tMovie a una altra.*/
 
-
-
-
-
-
-
+//first goes destination
+    dst->movieId = src.movieId;
+    strcpy(dst->title, src.title);
+    dst->duration = src.duration;
+    dst->rate = src.rate;
+    dst->income = src.income;
 /*****************************************/
 }
 
@@ -158,7 +178,7 @@ int movieTableFind(tMovieTable tabMovie, tMovieId id) {
 
 void movieTableDel(tMovieTable *tabMovie, tMovie movie) {
 /**************** EX 1C *******************/
-int pos = movieTableFind(*tabMovie, movie.movieId);
+    int pos = movieTableFind(*tabMovie, movie.movieId);
     if (pos >= 0) {
         for (int i = pos; i < tabMovie->nMovies; ++i) {
             tabMovie->table[i] = tabMovie->table[i + 1];
@@ -237,7 +257,7 @@ void movieTableSelectMovies(tMovieTable movies, float maxIncome, tMovieTable *re
     movieTableInit(result);
     for (i = 0; i < movies.nMovies; i++) {
 #ifdef TYPEDEF_COMPLETED
-        selected= (movies.table[i].income < maxIncome);
+        selected = (movies.table[i].income < maxIncome);
 #endif
         if (selected) {
             movieTableAdd(result, movies.table[i], &retVal);

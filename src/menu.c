@@ -70,7 +70,7 @@ void readMovie(tMovie *movie, tError *retVal) {
     //TODO: POSAR ENUMS
     *retVal = ERROR;
     while (*retVal == ERROR) {
-        printf("Movie rate (1 digit being ):\n>> ");
+        printf("Movie rate (1 digit being (0 = G_RATED, 1 = PG_RATED, 2 = PG13_RATED, 3 = R_RATED, 4 = NC17_RATED) ):\n>> ");
         scanf("%d", &number);
         if (number >= 0 && number <= 3) {
             movie->rate = (tMovieRate) (number);
@@ -591,7 +591,8 @@ void printTickets(tPurchase purchase, tCinema cinema, tScreen screen, tSession s
 */
 
     //mostrar tiquets
-    printf("Ticket 1");
+    printf("Ticket 1 [Test]");
+
     printf("Nom del cinema: %s", cinema.name); //cinema name
     printf("Nom del cinema: %s", movie.title); //movie title
     printf("Nom del cinema: %d", session.sessionId); //numero de la sala

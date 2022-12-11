@@ -457,8 +457,11 @@ void cinemaTableLoad(tCinemaTable *tabCinemas, const char *filename, tError *ret
 void cinemaTableFilterByType(tCinemaTable tabCinemas, tCinemaType type, tCinemaTable *result) {
 
 /**************** EX 7A *******************/
+/*l’acció cinemaTableFilterByType que,
+a partir d’una taula de cinemes i un tipus de cinema, retorni (en una segona
+taula) els cinemes que compleixin que són del tipus indicat.*/
 
-
+//conditions
 
 
 
