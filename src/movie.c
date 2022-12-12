@@ -90,35 +90,20 @@ int movieCmp(tMovie m1, tMovie m2) {
 
     int result = 0;
 /**************** EX 6B *******************/
-    //check if it's different
-    if (strcmpUpper(m1.title, m2.title) < 0) {
-        result = -1;
-    }
-    /*V1*/
     //check if it's different (all variables )
-    if (strcmpUpper(m1.title, m2.title) == 0 &&
-        timeCmp(m1.duration, m2.duration) &&
-        m1.rate == m2.rate && m1.income == m2.income) { //Equals
 
-        //alternative to timeCmp: m1.duration.hour == m2.duration.hour && m1.duration.minute == m2.duration.minute
+    if(strcmpUpper(m1.title, m2.title) == 0  && timeCmp(m1.duration, m2.duration) == 0 && m1.rate==m2.rate  &&m1.income == m2.income){
         result = 0;
     }
-
-    /*V2 not recommended*/
-    /*if ((strcmpUpper(m1.title, m2.title)) == 0) {
-        if (timeCmp(m1.duration, m2.duration)){
-            if (m1.rate == m2.rate){
-                if (m1.income == m2.income){
-                    result = 0;
-                }
-            }
-        }
-    }*/
-
-    //check if it's different
-    if (strcmpUpper(m1.title, m2.title) > 0) {
+    else if (strcmpUpper(m1.title, m2.title) < 0
+    || (strcmpUpper(m1.title, m2.title) == 0 && timeCmp(m1.duration, m2.duration) <0 ) ||
+        (strcmpUpper(m1.title, m2.title) == 0&& timeCmp(m1.duration, m2.duration) == 0 && m1.rate<m2.rate) ||
+        (strcmpUpper(m1.title, m2.title) ==0 && timeCmp(m1.duration, m2.duration) == 0 && m1.rate==m2.rate && m1.income< m2.income)){
+        result = -1;
+    } else {
         result = 1;
     }
+
 /******************************************/
     return result;
 }
@@ -267,15 +252,12 @@ void movieTableSelectMovies(tMovieTable movies, float maxIncome, tMovieTable *re
 
 void movieTableGetAvgDuration(tMovieTable tabMovie, tTime *avgTime) {
 /**************** EX 8B *******************/
+    avgTime->hour=0;
+    avgTime->minute=0;
 
-
-
-
-
-
-
-
-
+    for (int i = 0; i < tabMovie.nMovies; ++i) {
+        timeAdd(avgTime,tabMovie.table[i].duration);
+    }
 
 /*******************************************/
 }
@@ -289,17 +271,25 @@ void movieTableGetIncomePerRate(tMovieTable tabMovie,
     *nc17Rated = 0.0;
 
 /**************** EX 8C *******************/
-
-
-
-
-
-
-
-
-
-
-
+    for (int i = 0; i < tabMovie.nMovies; ++i) {
+        switch (tabMovie.table[i].rate) {
+            case G_RATED:
+                *gRated += 1;
+                break;
+            case PG_RATED:
+                *pgRated += 1;
+                break;
+            case PG13_RATED:
+                *pg13Rated +=1;
+                break;
+            case R_RATED:
+                *rRated+=1;
+                break;
+            case NC17_RATED:
+                *nc17Rated+=1;
+                break;
+        }
+    }
 /******************************************/
 }
 

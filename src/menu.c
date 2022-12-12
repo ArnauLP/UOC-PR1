@@ -592,18 +592,16 @@ void printTickets(tPurchase purchase, tCinema cinema, tScreen screen, tSession s
 
     //mostrar tiquets
     printf("Ticket 1 [Test]");
+//mostrar tot
 
-    printf("Nom del cinema: %s", cinema.name); //cinema name
-    printf("Nom del cinema: %s", movie.title); //movie title
-    printf("Nom del cinema: %d", session.sessionId); //numero de la sala
-    //printf("Nom del cinema: %d", session.time.hour); //hora inici de la sessio?
-    printf("Nom del cinema: %d", cinema.openingTime.hour); //hora inici de la sessio?
-    printf("Nom del cinema: %d", screen.rows); //row
-    printf("Nom del cinema: %d", screen.seatsPerRow); //seats
-
-
-
-
+    for (int i = 0; i < purchase.purchasedSeats; ++i) {
+        printf("Nom del cinema: %s", cinema.name);
+        printf("Nom pel·lícula: %s", movie.title);
+        printf("ID de la sessio: %d", session.sessionId);
+        printf("Hora d' inici: %d", cinema.openingTime.hour);
+        printf("Fila: %d", purchase.seats[i].row); //fila
+        printf("Seient: %d", purchase.seats[i].seatInRow);// seient
+    }
 /*****************************************/
 }
 

@@ -462,31 +462,45 @@ a partir d’una taula de cinemes i un tipus de cinema, retorni (en una segona
 taula) els cinemes que compleixin que són del tipus indicat.*/
 
 //conditions
-
-
-
-
-
+    tError error;
+    for (int i = 0; i < tabCinemas.nCinemas; ++i) {
+        if (tabCinemas.table[i].type == type) {
+            cinemaTableAdd(result, tabCinemas.table[i], &error);
+        }
+    }
 /*******************************************/
 }
 
 void cinemaTableFilterByMultiscreen(tCinemaTable tabCinemas, tCinemaTable *result) {
 
 /**************** EX 7B *******************/
+    tError error;
 
-
-
-
-
-
-
+    for (int i = 0; i < tabCinemas.nCinemas; ++i) {
+        if (tabCinemas.table[i].screens.nScreens > 1) {
+            cinemaTableAdd(result, tabCinemas.table[i], &error);
+        }
+    }
 /*******************************************/
 }
 
 void cinemaTableGetMultiscreenPremiereCinemas(tCinemaTable tabCinemas, tCinemaTable *result) {
+
+    tCinemaTable filterType;
+    tCinemaTable filterMulti;
+    tError error;
 /**************** EX 7C *******************/
+    cinemaTableFilterByType(tabCinemas, PREMIERE, &filterType);
+    cinemaTableFilterByMultiscreen(tabCinemas, &filterMulti);
 
+    for (int i = 0; i < filterType.nCinemas; ++i) {
+        for (int j = 0; j < filterMulti.nCinemas; ++j) {
+            if (filterType.table[i].cinemaId == filterMulti.table[j].cinemaId) {
+                cinemaTableAdd(result, filterType.table[i], &error);
+            }
 
+        }
+    }
 
 /******************************************/
 }
@@ -523,16 +537,16 @@ float cinemaAverageOccupation(tCinema cinema) {
 
 float cinemaTableComputeAverageOccupation(tCinemaTable tabCinema, char *city) {
     float avgOcc = 0.0;
-
+    float avgCinema = 0;
+    float sumTotalCinema = 0;
 /**************** EX 8A *******************/
 
-
-
-
-
-
-
-
+//sumar tots els cinemes i dividir entre el numero
+    for (int i = 0; i < tabCinema.nCinemas; ++i) {
+        sumTotalCinema = sumTotalCinema + cinemaAverageOccupation(tabCinema.table[i]);
+    }
+    if (sumTotalCinema > 0)
+        avgOcc = sumTotalCinema / (float) tabCinema.nCinemas;
 /******************************************/
 
     return avgOcc;
@@ -540,12 +554,6 @@ float cinemaTableComputeAverageOccupation(tCinemaTable tabCinema, char *city) {
 
 void assignSeats(tSession *session, int number, int selectedRow, int selectedSeat) {
 /**************** EX 4B *******************/
-
-
-
-
-
-
 
 /******************************************/
 }
