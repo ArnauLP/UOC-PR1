@@ -137,6 +137,7 @@ void movieTableAdd(tMovieTable *tabMovie, tMovie movie, tError *retVal) {
 
     strcpy(tabMovie->table[tabMovie->nMovies].title, movie.title);
     tabMovie->table[tabMovie->nMovies].duration = movie.duration;
+    tabMovie->table[tabMovie->nMovies].movieId = movie.movieId;
     tabMovie->table[tabMovie->nMovies].rate = movie.rate;
     tabMovie->table[tabMovie->nMovies].income = movie.income;
 

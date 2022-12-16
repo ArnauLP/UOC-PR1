@@ -72,11 +72,15 @@ void readMovie(tMovie *movie, tError *retVal) {
     while (*retVal == ERROR) {
         printf("Movie rate (1 digit being (0 = G_RATED, 1 = PG_RATED, 2 = PG13_RATED, 3 = R_RATED, 4 = NC17_RATED) ):\n>> ");
         scanf("%d", &number);
-        if (number >= 0 && number <= 3) {
+        if (number >= 0 && number <= 4) {
             movie->rate = (tMovieRate) (number);
             *retVal = OK;
         }
     }
+
+    printf("Movie income: ");
+    scanf("%f", &movie->income);
+
 /*****************************************/
 }
 

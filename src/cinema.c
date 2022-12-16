@@ -555,6 +555,10 @@ float cinemaTableComputeAverageOccupation(tCinemaTable tabCinema, char *city) {
 void assignSeats(tSession *session, int number, int selectedRow, int selectedSeat) {
 /**************** EX 4B *******************/
 
+    for (int i = selectedSeat; i < selectedSeat + number; ++i) {
+        session->seats[selectedRow][i] = PURCHASED;
+    }
+
 /******************************************/
 }
 
@@ -563,21 +567,27 @@ void findSeats(tSession session, int rows, int seatsPerRow, int numberOfSeats,
     bool found = false;
 
 /**************** EX 4A *******************/
+    //mig dret n/2 n
+    int iniciRow = rows / 2;
+    int fiRow = rows;
+    int iniciSeat = seatsPerRow / 2;
+    int fiSeat = seatsPerRow;
+    int lliures = 0;
+    int i, j = 0;
+    j = iniciSeat;
+    i = iniciRow;
+    while (j < fiSeat && !found) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if (session.seats[i][j] == FREE) {
+            lliures++;
+            if (lliures == numberOfSeats) {
+                found = true;
+                *selectedRow = iniciRow;
+                *selectedSeat = j - numberOfSeats + 1;
+            }
+        }
+        j++;
+    }
 
 
 /******************************************/
