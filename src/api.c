@@ -234,13 +234,16 @@ void addSession(tAppData *object, tCinemaId cinemaId, tScreenId screenId, tMovie
 
 /**************** EX 3A *******************/
                 if (*retVal != ERR_ENTRY_NOT_FOUND){
-
-                    timeCpy(&movieTime, object->movies.table[iMovie].duration);
-                    timeCpy(&endTime, object->cinemas.table[iCinema].closingTime);
-                    timeCpy(&startTime , object->cinemas.table[iCinema].screens.table[iScreen].sessions.table[nSessions].time);
-                    tTime add ;
+                    //hora inici sesssio
+                    timeCpy(&startTime, prevSession.time);
+                    //durada pelicula
+                    timeCpy(&movieTime, prevMovie.duration);
+                    //suma inici + durada
+                    timeAdd(&startTime,movieTime);
+                    tTime add;
                     add.hour = 0;
                     add.minute = 20;
+                    //inici nova peli = final anterior + 20 min
                     timeAdd(&startTime,add);
 
                     if (checkTimeFits(startTime, movieTime, endTime)) {
@@ -299,14 +302,14 @@ bool isMovieProgrammed(tAppData object, tMovie movie) {
                     iSesion++;
                 }
                 iSesion = 0;
+                iscreens ++;
             }
             iscreens = 0;
+            iCinema ++;
         }
-        return idx;
+        return idx!= NO_MOVIE;
 
 /*********************************************/
-
-    return found;
 }
 
 void processPurchase(tPurchase *purchase, tCinemaTable *cinemas, tError *retVal) {

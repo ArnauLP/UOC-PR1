@@ -463,6 +463,7 @@ taula) els cinemes que compleixin que són del tipus indicat.*/
 
 //conditions
     tError error;
+    result->nCinemas=0;
     for (int i = 0; i < tabCinemas.nCinemas; ++i) {
         if (tabCinemas.table[i].type == type) {
             cinemaTableAdd(result, tabCinemas.table[i], &error);
@@ -475,7 +476,7 @@ void cinemaTableFilterByMultiscreen(tCinemaTable tabCinemas, tCinemaTable *resul
 
 /**************** EX 7B *******************/
     tError error;
-
+    result->nCinemas=0;
     for (int i = 0; i < tabCinemas.nCinemas; ++i) {
         if (tabCinemas.table[i].screens.nScreens > 1) {
             cinemaTableAdd(result, tabCinemas.table[i], &error);
@@ -490,15 +491,15 @@ void cinemaTableGetMultiscreenPremiereCinemas(tCinemaTable tabCinemas, tCinemaTa
     tCinemaTable filterMulti;
     tError error;
 /**************** EX 7C *******************/
+    result->nCinemas=0;
     cinemaTableFilterByType(tabCinemas, PREMIERE, &filterType);
     cinemaTableFilterByMultiscreen(tabCinemas, &filterMulti);
 
     for (int i = 0; i < filterType.nCinemas; ++i) {
         for (int j = 0; j < filterMulti.nCinemas; ++j) {
-            if (filterType.table[i].cinemaId == filterMulti.table[j].cinemaId) {
+            if(filterType.table[i].cinemaId == filterMulti.table[j].cinemaId){
                 cinemaTableAdd(result, filterType.table[i], &error);
             }
-
         }
     }
 

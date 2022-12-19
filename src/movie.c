@@ -131,17 +131,20 @@ retorneu OK.
  */
 void movieTableAdd(tMovieTable *tabMovie, tMovie movie, tError *retVal) {
 
-    *retVal = OK;
 
+    *retVal = ERR_MEMORY;
 /**************** EX 1B *******************/
+    if(tabMovie->nMovies < MAX_MOVIES){
+        *retVal = OK;
+        strcpy(tabMovie->table[tabMovie->nMovies].title, movie.title);
+        timeCpy(&(tabMovie->table[tabMovie->nMovies].duration), movie.duration);
+        tabMovie->table[tabMovie->nMovies].movieId = movie.movieId;
+        tabMovie->table[tabMovie->nMovies].rate = movie.rate;
+        tabMovie->table[tabMovie->nMovies].income = movie.income;
 
-    strcpy(tabMovie->table[tabMovie->nMovies].title, movie.title);
-    tabMovie->table[tabMovie->nMovies].duration = movie.duration;
-    tabMovie->table[tabMovie->nMovies].movieId = movie.movieId;
-    tabMovie->table[tabMovie->nMovies].rate = movie.rate;
-    tabMovie->table[tabMovie->nMovies].income = movie.income;
+        tabMovie->nMovies++;
+    }
 
-    tabMovie->nMovies++;
 
 /******************************************/
 }
@@ -255,10 +258,19 @@ void movieTableGetAvgDuration(tMovieTable tabMovie, tTime *avgTime) {
 /**************** EX 8B *******************/
     avgTime->hour=0;
     avgTime->minute=0;
-
+    int nMovies=0;
     for (int i = 0; i < tabMovie.nMovies; ++i) {
         timeAdd(avgTime,tabMovie.table[i].duration);
+        nMovies++;
     }
+    int min = avgTime->minute + (avgTime->hour * 60);
+    if(min>0){
+        int avgMin = min / nMovies;
+        // passar minuts a hores;
+        avgTime->hour = avgMin/60;
+        avgTime->minute = avgMin%60;
+    }
+
 
 /*******************************************/
 }

@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv) {
     int i;
-    bool testMode = false;
+    bool testMode = true;
 
     /* Define the variable to store the application data */
     tAppData appData;
